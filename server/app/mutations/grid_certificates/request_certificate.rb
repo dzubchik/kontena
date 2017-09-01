@@ -116,8 +116,7 @@ module GridCertificates
       certificate_model
 
     rescue Acme::Client::Error => exc
-      error "#{exc.class.name}: #{exc.message}"
-      error exc.backtrace.join("\n") if exc.backtrace
+      error exc
       add_error(:acme_client, :error, exc.message)
     end
 
