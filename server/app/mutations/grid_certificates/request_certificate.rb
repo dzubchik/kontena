@@ -73,8 +73,7 @@ module GridCertificates
       warn 'timeout while waiting for DNS verfication status'
       add_error(:challenge_verify, :timeout, 'Challenge verification timeout')
     rescue Acme::Client::Error => exc
-      error "#{exc.class.name}: #{exc.message}"
-      error exc.backtrace.join("\n") if exc.backtrace
+      error exc
       add_error(:acme_client, :error, exc.message)
     end
 
