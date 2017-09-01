@@ -44,7 +44,7 @@ module GridCertificates
 
     def verify_domain(domain)
       domain_authorization = get_authz_for_domain(self.grid, domain)
-      challenge = acme_client.challenge_from_hash(domain_authorization.challenge)
+      challenge = le_client.challenge_from_hash(domain_authorization.challenge)
       if domain_authorization.state == :created
         info 'requesting verification for domain #{domain}'
         success = challenge.request_verification
@@ -92,7 +92,7 @@ module GridCertificates
       return if has_errors?
 
       csr = Acme::Client::CertificateRequest.new(names: self.domains)
-      certificate = acme_client.new_certificate(csr)
+      certificate = le_client.new_certificate(csr)
       cert_priv_key = certificate.request.private_key.to_pem
       certificate_pem = nil
       case self.cert_type
@@ -119,8 +119,8 @@ module GridCertificates
     end
 
 
-    def acme_client
-      @acme_client ||= acme_client(self.grid)
+    def le_client
+      @le_client ||= acme_client(self.grid)
     end
 
   end
