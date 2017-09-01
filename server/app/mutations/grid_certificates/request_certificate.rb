@@ -15,7 +15,7 @@ module GridCertificates
       array :domains do
         string
       end
-      string :cert_type, in: ['cert', 'chain', 'fullchain'], default: 'fullchain'
+      string :cert_type, in: ['cert', 'fullchain'], default: 'fullchain'
     end
 
     optional do
@@ -98,8 +98,6 @@ module GridCertificates
       case self.cert_type
         when 'fullchain'
           certificate_pem = certificate.fullchain_to_pem
-        when 'chain'
-          certificate_pem = certificate.chain_to_pem
         when 'cert'
           certificate_pem = certificate.to_pem
       end

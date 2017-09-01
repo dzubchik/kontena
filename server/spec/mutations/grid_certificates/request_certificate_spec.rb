@@ -143,18 +143,6 @@ describe GridCertificates::RequestCertificate do
         expect(c.certificate).to eq('certificate_only')
       }.to change {grid.certificates.count}.by (1)
     end
-
-    it 'get chain cert' do
-      subject = described_class.new(grid: grid, secret_name: 'secret', domains: ['example.com'], cert_type: 'chain')
-      expect {
-        c = subject.execute
-        expect(c.subject).to eq('example.com')
-        expect(c.valid_until).not_to be_nil
-        expect(c.alt_names).to be_empty
-        expect(c.private_key).to eq('private_key')
-        expect(c.certificate).to eq('chain_certificate')
-      }.to change {grid.certificates.count}.by (1)
-    end
   end
 
 
