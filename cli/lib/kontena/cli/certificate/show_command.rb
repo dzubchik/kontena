@@ -11,10 +11,6 @@ module Kontena::Cli::Certificate
     requires_current_master_token
     requires_current_grid
 
-    def show_certificate(certificate)
-      YAML.dump(certificate)
-    end
-
     def execute
       certificate = client.get("certificates/#{current_grid}/#{self.subject}")
       puts YAML.dump(certificate)
