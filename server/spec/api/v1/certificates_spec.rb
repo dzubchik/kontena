@@ -77,6 +77,7 @@ describe '/v1/containers' do
       get "/v1/certificates/#{grid.name}/kontena.io", nil, request_headers
       expect(response.status).to eq(200)
       expect(json_response['subject']).to eq('kontena.io')
+      expect(json_response['id']).to eq("#{grid.name}/kontena.io")
     end
 
     it '404 for non-existing cert' do
