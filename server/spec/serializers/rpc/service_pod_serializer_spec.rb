@@ -181,9 +181,10 @@ describe Rpc::ServicePodSerializer do
         service.certificates.create!(subject: 'kontena.io', name: 'CERT')
         subject = described_class.new(service_instance)
         secrets = subject.to_hash[:secrets]
-        expect(secrets.size).to eq(1)
-        expect(secrets[0][:name]).to eq('CERT')
-        expect(secrets[0][:value]).to eq('certificateprivate_key')
+
+        expect(secrets.size).to eq(2) # There's also the tls domain auth secret
+
+        expect(secrets.find{ |s| s[:name] == 'CERT'}[:value]).to eq('certificateprivate_key')
       end
     end
 
